@@ -6,30 +6,7 @@ const {
   WalletAccount,
 } = require("near-api-js");
 const { parseSeedPhrase } = require("near-seed-phrase");
-// import { getAccountObjBySeedPhrase } from "./walletExample.js";
 const { getAccountObjBySeedPhrase } = require("./walletExample");
-
-// async function getPrivateKeyFromSeedPhrase(seedPhrase, accountId) {
-//   let res = parseSeedPhrase(seedPhrase);
-//   const privateKey = res.secretKey;
-//   const keyStore = new keyStores.InMemoryKeyStore();
-//   const keyPair = KeyPair.fromString(privateKey);
-//   await keyStore.setKey("mainnet", accountId, keyPair); // 실질적으로 async함수 아님.
-
-//   const mainnetConfig = {
-//     networkId: "mainnet",
-//     keyStore: keyStore,
-//     nodeUrl: "https://rpc.mainnet.near.org",
-//     walletUrl: "https://wallet.mainnet.near.org",
-//     helperUrl: "https://helper.mainnet.near.org",
-//     explorerUrl: "https://explorer.mainnet.near.org",
-//   };
-
-//   const near = await connect(mainnetConfig);
-//   const account = await near.account(accountId);
-
-//   return account;
-// }
 
 const main = async () => {
   let privateKey =
@@ -68,7 +45,6 @@ const main = async () => {
   console.log("\n## USDC 총 공급량 ##");
   console.log(response);
 
-  return;
   //특정 유저의 USDC 잔고 확인해보기
   response = await usdcContract.ft_balance_of({ account_id: "dora2.near" });
   console.log("\n## dora2.near의 USDC 잔고 ##");
