@@ -35,7 +35,7 @@ const main = async () => {
         "storage_balance_of",
         "storage_balance_bounds",
       ], // view methods do not change state but usually return a value
-      changeMethods: ["ft_transfer", "storage_deposit"], // change methods modify state
+      changeMethods: ["ft_transfer", "storage_deposit", "ft_mint", "ft_burn"], // change methods modify state
       sender: account, // account object to initialize and sign transactions.
     }
   );
@@ -132,7 +132,39 @@ const main = async () => {
   );
   console.log("## USDC 송금 테스트 ##");
   console.log(response);
+  
+  
+  // MINT
+  let _amt = (amt * 10 ** decimals).toString();
+  let depositValue = "1"; // 반드시 딱 1 이어야 함.
+  response = await usdcContract.ft_mint(
+    {
+      amount: _amt,
+      receiver_id: recipient,
+      //   memo: null,
+    },
+    attachedGAS,
+    depositValue
+  );
+  console.log("## 민팅 테스트 ##");
+  console.log(response);
 
+  
+  // BURN
+  let _amt = (amt * 10 ** decimals).toString();
+  let depositValue = "1"; // 반드시 딱 1 이어야 함.
+  response = await usdcContract.ft_burn(
+    {
+      amount: _amt,
+      sender_id: recipient,
+      //   memo: null,
+    },
+    attachedGAS,
+    depositValue
+  );
+  console.log("## 소각 테스트 ##");
+  console.log(response);
+  
   /*
   InMemorySigner
   tx전파와 tx사인을 나눌 수 있음. POC 필요.
